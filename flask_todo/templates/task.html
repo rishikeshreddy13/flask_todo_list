@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My To-Do List</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      margin-top: 60px;
+      padding: 30px;
+      width: 400px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      background-color: #f1f1f1;
+      padding: 10px 15px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .delete-btn {
+      background: #dc3545;
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      background: #c82333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>My To-Do List</h2>
+    <form action="/task" method="POST">
+      <input type="text" name="task" placeholder="Enter a new task" required>
+      <button type="submit" name="submit">Add</button>
+    </form>
+
+    <ul>
+      {% for task in tasks %}
+        <li>
+          {{ task.name  }} {{ task.id}}
+          <form action="/delete/{{task.id}}" method="POST"> 
+            <button class="delete-btn" >delete</button>
+          </form>
+        
+        </li>
+      {% else %}
+        <li style="justify-content: center; color: #777;">No tasks yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <form action="/logout" method="POST" >
+    <button >logout</button>
+  </form>
+</body>
+</html>
